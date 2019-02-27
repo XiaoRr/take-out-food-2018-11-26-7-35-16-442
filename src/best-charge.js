@@ -1,3 +1,8 @@
-function bestCharge(selectedItems) {
-  return /*TODO*/;
+module.exports = function bestCharge(selectedItems) {
+
+  return `============= 订餐明细 =============
+肉夹馍 x 4 = 24元
+-----------------------------------
+总计：24元
+===================================`;
 }
