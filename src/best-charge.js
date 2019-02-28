@@ -1,20 +1,53 @@
 
 function bestCharge(selectedItems) {
+  var info = inputParser(selectedItems);
   var title = '============= 订餐明细 =============\n';
   var cutOffRule = '-----------------------------------\n';
   var endRule = '===================================\n';
-  var list = FormatItemList(selectedItems);
+  var list = FormatItemList(info);
   var price = 24;
   return title + list + cutOffRule + '总计：' + price + '元\n' + endRule;
 }
 
-function FormatItemList(selectedItems){
-  //getItemInfoById(1);
-  return '肉夹馍 x 4 = 24元\n';
+function FormatItemList(info){
+  let list = '';
+  for(let item of info){
+    list+=item.name+' x '+item.num + ' = '+item.num*item.price+'元\n';
+  }
+  
+  return list;
 }
 
 function getItemInfoById(id){
-    let items = loadAllItems();
+  let items = loadAllItems();
+  console.log('find',id);
+  for( let i of items){
+    if(i.id == id){
+      console.log('find');
+        return {
+          name:i.name,
+          price:i.price
+        }
+    }
+  }
+
+}
+
+function inputParser(selectedItems){
+  //console.log(selectedItems);
+  var ParsedselectedItems = [];
+  selectedItems.forEach(element => {
+    //console.log(element);
+    var item = new Object();
+    var info = element.match(/(ITEM\d+)\s*[xX]\s*(\d+)/);
+    //console.log(info);
+    item.id = info[1];
+    item.num = info[2];
+    item.name = getItemInfoById(item.id).name;
+    item.price = getItemInfoById(item.id).price;
+    ParsedselectedItems.push(item);
+  })
+  return ParsedselectedItems;
 }
 /*
 module.exports = {
