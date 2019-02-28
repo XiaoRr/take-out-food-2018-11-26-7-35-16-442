@@ -30,9 +30,23 @@ function getItemInfoById(id){
         }
     }
   }
-
 }
-
+//获取打五折的物品列表
+function LoadFiftyOffItemId(){
+  return loadPromotions[1].items;
+}
+//指定菜品半价
+function saleOne(info,fiftyOffItemList){
+  let saveValue = 0;  //节约的数值
+  let total = 0;  //总价
+  for(let item of info){
+    total+=item.price * item.num;
+    if(fiftyOffItemList.indexOf(item) > -1 ){
+      saveValue += item.price*item.num/2;
+    }
+  }
+  total-=saveValue;
+}
 function inputParser(selectedItems){
   //console.log(selectedItems);
   var ParsedselectedItems = [];
